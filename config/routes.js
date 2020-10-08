@@ -22,6 +22,9 @@ module.exports.routes = {
   'GET /': 'RestaurantController.Home',
   'POST /': 'RestaurantController.Home',
 
+  'GET /create' : 'RestaurantController.Create',
+  'POST /create' : 'RestaurantController.Create',
+
 
   /***************************************************************************
   *                                                                          *
