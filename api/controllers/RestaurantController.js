@@ -6,6 +6,11 @@
  */
 
 module.exports = {
+
+    Home: async function(req, res){
+        if(req.method == "GET") return res.view('restaurant/Homepage');
+
+    }
   
 
 };

@@ -19,7 +19,8 @@ module.exports.routes = {
   *                                                                          *
   ***************************************************************************/
 
-  '/': { view: 'pages/homepage' },
+  'GET /': 'RestaurantController.Home',
+  'POST /': 'RestaurantController.Home',
 
 
   /***************************************************************************
