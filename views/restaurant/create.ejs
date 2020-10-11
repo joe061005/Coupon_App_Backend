@@ -29,7 +29,7 @@
 <style>
     .colmar {
         margin: 20px;
-        border:20px;
+        border: 20px;
 
     }
 
@@ -54,7 +54,7 @@
 
     <div id="navbarBasicExample" class="navbar-menu">
         <div class="navbar-start">
-            <a href = "http://localhost:1337/" class="navbar-item">
+            <a href="http://localhost:1337/" class="navbar-item">
                 Home
             </a>
 
@@ -62,7 +62,7 @@
                 Search
             </a>
 
-            <a href = "http://localhost:1337/create" class="navbar-item">
+            <a href="http://localhost:1337/create" class="navbar-item">
                 Create
             </a>
 
@@ -87,27 +87,27 @@
     </div>
 </nav>
 
-<form class="colmar">
+<form class="colmar" action="/create" method="post">
 
     <div class="field-group">
         <div class="field is-inline-block-desktop">
             <label class="label">Title</label>
             <div class="control">
-                <input class="input sameline" type="text" style="width: 500px">
+                <input class="input sameline" type="text" style="width: 500px" name = "title" required>
             </div>
         </div>
 
         <div class="field is-inline-block-desktop">
             <label class="label">Quota</label>
             <div class="control">
-                <input class="input sameline" min = 0 type="number" style="width: 400px" >
+                <input class="input sameline" min=0 type="number" style="width: 400px" name = "quota" required>
             </div>
         </div>
 
         <div class="field is-inline-block-desktop">
             <label class="label">Coins</label>
             <div class="control">
-                <input class="input sameline" min = 0 type="number" style="width: 400px">
+                <input class="input sameline" min=0 type="number" style="width: 400px" name = "coins"required>
             </div>
         </div>
     </div>
@@ -116,14 +116,14 @@
         <div class="field is-inline-block-desktop">
             <label class="label">Restaurant</label>
             <div class="control">
-                <input class="input sameline" type="text" style="width: 500px">
+                <input class="input sameline" type="text" style="width: 500px" name = "name" required>
             </div>
         </div>
 
         <div class="field is-inline-block-desktop">
             <label class="label">Expiry Date</label>
             <div class="control">
-                <input class="input sameline" type="date" style="width: 840px">
+                <input class="input sameline" value = value.toISOString() type="date" style="width: 840px" name = "validtill" required>
             </div>
         </div>
     </div>
@@ -132,22 +132,38 @@
         <div class="field is-inline-block-desktop">
             <label class="label">Region</label>
             <div class="control">
-                <input class="input sameline" type="text" style="width: 300px">
+                <input class="input sameline" type="text" style="width: 300px" name = "region" required>
             </div>
         </div>
 
         <div class="field is-inline-block-desktop">
             <label class="label">Mall</label>
             <div class="control">
-                <input class="input sameline" type="text" style="width: 300px">
+                <input class="input sameline" type="text" style="width: 300px" name = "mail" required>
+            </div>
+        </div>
+
+        <div class = "field is-inline-block-desktop">
+            <label class="label">Image</label>
+            <div class="control">
+                <input class="input sameline" type="text" style="width: 640px" name = "image" required>
             </div>
         </div>
 
         <div class="field is-inline-block-desktop">
             <label class="label">Detail</label>
             <div class="control">
-                <textarea class="textarea sameline" cols="100"></textarea>
+                <textarea class="textarea sameline" cols="100" name = "detail" required></textarea>
             </div>
         </div>
+
+    
     </div>
+        
+    <div style = "margin-top: 20px" class="field">
+        <div class="control">
+            <button class="button is-link" type="submit" required>Submit</button>
+        </div>
+    </div>
+
 </form>

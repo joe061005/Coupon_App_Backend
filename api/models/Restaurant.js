@@ -16,7 +16,7 @@ module.exports = {
       type: "string"
     },
 
-    restaurant: {
+    name: {
       type: "string"
     },
 
@@ -46,7 +46,7 @@ module.exports = {
 
     detail: {
       type: "string"
-    }
+    },
 
     //  ╔═╗╔╦╗╔╗ ╔═╗╔╦╗╔═╗
     //  ║╣ ║║║╠╩╗║╣  ║║╚═╗
