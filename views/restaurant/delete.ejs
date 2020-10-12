@@ -25,50 +25,6 @@
 
     });
 
-    var HKIsland = ["IFC Mall", "Pacific Place", "Times Square"]
-    var Kowloon = ["Elements", "Harbour City", "Festival Walk", "MegaBox", "APM"]
-    var NewTerritories = ["New Town Plaza", "Tsuen Wan Plaza"]
-
-    function placeSelected(place) {
-        var mall = document.getElementById("Mall");
-        mall.options.length = 0;
-
-        if (place == "HKIsland") {
-            HKIsland.forEach(function (name) {
-                var option = document.createElement("option");
-                option.text = name;
-                option.value = name;
-                mall.add(option);
-            });
-
-            mall.disabled = false;
-
-        } else if (place == "Kowloon"){
-            Kowloon.forEach(function (name){
-                var option = document.createElement("option");
-                option.text = name;
-                option.value = name;
-                mall.add(option);
-            });
-
-            mall.disabled = false;
-
-        }else if (place == "NewTerritories"){
-            NewTerritories.forEach(function(name){
-                var option = document.createElement("option");
-                option.value = name;
-                option.text = name;
-                mall.add(option);
-            });
-
-            mall.disabled = false;
-        }else{
-            mall.disabled = true;
-        }
-
-    }
-
-
 </script>
 
 <style>
@@ -138,21 +94,21 @@
         <div class="field is-inline-block-desktop">
             <label class="label">Title</label>
             <div class="control">
-                <input class="input sameline" type="text" style="width: 500px" name="title" required>
+                <input class="input sameline" type="text" style="width: 500px" name="title" value = "<%= rest.title%>" required>
             </div>
         </div>
 
         <div class="field is-inline-block-desktop">
             <label class="label">Quota</label>
             <div class="control">
-                <input class="input sameline" min=0 type="number" style="width: 400px" name="quota" required>
+                <input class="input sameline" min=0 type="number" style="width: 400px" name="quota" value = "<%= rest.quota%>" required>
             </div>
         </div>
 
         <div class="field is-inline-block-desktop">
             <label class="label">Coins</label>
             <div class="control">
-                <input class="input sameline" min=0 type="number" style="width: 400px" name="coins" required>
+                <input class="input sameline" min=0 type="number" style="width: 400px" name="coins" value = "<%= rest.coins%>" required>
             </div>
         </div>
     </div>
@@ -161,7 +117,7 @@
         <div class="field is-inline-block-desktop">
             <label class="label">Restaurant</label>
             <div class="control">
-                <input class="input sameline" type="text" style="width: 500px" name="name" required>
+                <input class="input sameline" type="text" style="width: 500px" name="name" value = "<%= rest.name%>" required>
             </div>
         </div>
 
@@ -169,7 +125,7 @@
             <label class="label">Expiry Date</label>
             <div class="control">
                 <input class="input sameline" type="date" style="width: 840px" name="validtill"
-                    vaule=value.toISOString() required>
+                value = "<%= rest.validtill%>"  required>
             </div>
         </div>
     </div>
@@ -179,7 +135,7 @@
             <label class="label">Region</label>
             <div class="control">
                 <div style="margin-right: 200px;" class="select">
-                    <select name="region" onchange="placeSelected(this.value)" required>
+                    <select name="region" onchange="placeSelected(this.value)" value = "<%= rest.region%>" required>
                         <option value="">Select the Region</option>
                         <option value="HKIsland">HK Island</option>
                         <option value="Kowloon">Kowloon</option>
@@ -194,7 +150,7 @@
             <label class="label">Mall</label>
             <div class="control">
                 <div style="margin-right: 200px;" class="select">
-                    <select name="mail" id="Mall" disabled required>
+                    <select name="mail" id="Mall" value = "<%= rest.mail%>" required>
                     </select>
                 </div>
             </div>
@@ -219,7 +175,7 @@
 
     <div style="margin-top: 20px" class="field">
         <div class="control">
-            <button class="button is-link" type="submit" required>Submit</button>
+            <button style = "background-color: red;"class="button is-link" type="submit" required>Delete</button>
         </div>
     </div>
 
