@@ -5,7 +5,6 @@
  * @help        :: See https://sailsjs.com/docs/concepts/actions
  */
 
-
 module.exports = {
 
     Home: async function(req, res){
@@ -19,8 +18,29 @@ module.exports = {
 
         var rest =  await Restaurant.create(req.body).fetch();
 
-        return res.status(201).json({ id: rest.id }); 
-    }
+        return res.ok(); 
+    },
+
+    Delete: async function(req, res){
+        var rt = await Restaurant.findOne(req.params.id);
+
+        if(req.method == "GET") return res.view('restaurant/delete', {rest: rt});
+
+        if(req.body[action]== "Delete"){
+            var deletedRest = await Restaurant.destroyOne(req.params.id);
+
+            if(!deletedRest) return res.notFound();
+            
+            return res.ok();
+
+        }else if(req.body[action] == "Update"){
+            var updatedRest = await Restaurant.updateOne(req.params.id).set(req.body);
+
+            if(!updatedRst) return res.notFound();
+
+            return res.ok();
+        }
+    },
   
 
 };

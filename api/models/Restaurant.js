@@ -24,7 +24,7 @@ module.exports = {
       type: "string"
     },
 
-    mail: {
+    mall: {
       type: "string"
     },
 

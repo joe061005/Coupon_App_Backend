@@ -25,6 +25,9 @@ module.exports.routes = {
   'GET /create' : 'RestaurantController.Create',
   'POST /create' : 'RestaurantController.Create',
 
+  'GET /delete/:id' : 'RestaurantController.Delete',
+  'POST /delete/:id' : 'RestaurantController.Delete',
+
 
   /***************************************************************************
   *                                                                          *
