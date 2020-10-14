@@ -5,10 +5,12 @@
  * @help        :: See https://sailsjs.com/docs/concepts/actions
  */
 
+
 module.exports = {
 
     Home: async function(req, res){
-        if(req.method == "GET") return res.view('restaurant/Homepage');
+       var 
+      return res.view('restaurant/Homepage');
 
 
     },
@@ -26,21 +28,29 @@ module.exports = {
 
         if(req.method == "GET") return res.view('restaurant/delete', {rest: rt});
 
-        if(req.body[action]== "Delete"){
+        //return res.json(req.body["action"]);
+
+        if(req.body["action"]== "Delete"){
             var deletedRest = await Restaurant.destroyOne(req.params.id);
 
             if(!deletedRest) return res.notFound();
             
             return res.ok();
 
-        }else if(req.body[action] == "Update"){
+        }else if(req.body["action"] == "Update"){
             var updatedRest = await Restaurant.updateOne(req.params.id).set(req.body);
 
-            if(!updatedRst) return res.notFound();
+            if(!updatedRest) return res.notFound();
 
             return res.ok();
         }
     },
+
+    Admin: async function(req, res){
+        var rt = await Restaurant.find();
+
+        return res.view('restaurant/Admin',{restaurant: rt});
+    }
   
 
 };

@@ -28,6 +28,10 @@ module.exports.routes = {
   'GET /delete/:id' : 'RestaurantController.Delete',
   'POST /delete/:id' : 'RestaurantController.Delete',
 
+  'GET /Admin' : 'RestaurantController.Admin',
+  'POST /Admin' : 'RestaurantController.Admin',
+
+
 
   /***************************************************************************
   *                                                                          *
