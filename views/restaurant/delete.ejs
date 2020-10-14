@@ -33,7 +33,7 @@
         var mall = document.getElementById("Mall");
         mall.options.length = 0;
 
-        if (place == "HKIsland") {
+        if (place == "HK Island") {
             for (i = 0; i < HKIsland.length; i++) {
                 var option = document.createElement("option");
                 if (HKIsland[i] == ml) {
@@ -59,7 +59,7 @@
 
             mall.disabled = false;
 
-        } else if (place == "NewTerritories") {
+        } else if (place == "New Territories") {
             for (i = 0; i < NewTerritories.length; i++) {
                 var option = document.createElement("option");
                 if (NewTerritories[i] == ml) {
@@ -195,12 +195,12 @@
                         <select id="reg" name="region" onchange="placeSelected(this.value)" value="<%= rest.region%>"
                             required>
                             <option value="">Select the Region</option>
-                            <option id="hkisland" value="HKIsland" <%= rest.region == "HKIsland"? 'selected': '' %>>HK
+                            <option id="hkisland" value="HK Island" <%= rest.region == "HK Island"? 'selected': '' %>>HK
                                 Island</option>
                             <option id="kowloon" value="Kowloon" <%= rest.region == "Kowloon"? 'selected': '' %>>Kowloon
                             </option>
-                            <option id="newterr" value="NewTerritories"
-                                <%= rest.region == "NewTerritories"? 'selected': '' %>>New Territories</option>
+                            <option id="newterr" value="New Territories"
+                                <%= rest.region == "New Territories"? 'selected': '' %>>New Territories</option>
                         </select>
                     </div>
 

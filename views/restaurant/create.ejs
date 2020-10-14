@@ -33,7 +33,7 @@
         var mall = document.getElementById("Mall");
         mall.options.length = 0;
 
-        if (place == "HKIsland") {
+        if (place == "HK Island") {
             HKIsland.forEach(function (name) {
                 var option = document.createElement("option");
                 option.text = name;
@@ -53,7 +53,7 @@
 
             mall.disabled = false;
 
-        }else if (place == "NewTerritories"){
+        }else if (place == "New Territories"){
             NewTerritories.forEach(function(name){
                 var option = document.createElement("option");
                 option.value = name;
@@ -181,9 +181,9 @@
                 <div style="margin-right: 200px;" class="select">
                     <select name="region" onchange="placeSelected(this.value)" required>
                         <option value="">Select the Region</option>
-                        <option value="HKIsland">HK Island</option>
+                        <option value="HK Island">HK Island</option>
                         <option value="Kowloon">Kowloon</option>
-                        <option value="NewTerritories">New Territories</option>
+                        <option value="New Territories">New Territories</option>
                     </select>
                 </div>
 

@@ -10,17 +10,17 @@ module.exports = {
     Home: async function(req, res){
       var kow = await Restaurant.find({
           where: { region: 'Kowloon'},
-          sort: 'validtill DESC'
+          sort: 'createdAt DESC'
       })
 
       var HKI = await Restaurant.find({
-          where: {region: 'HKIsland'},
-          sort: 'validtill DESC'
+          where: {region: 'HK Island'},
+          sort: 'createdAt DESC'
       })
 
       var NT = await Restaurant.find({
-          where: {region: 'NewTerritories'},
-          sort: 'validtill DESC'
+          where: {region: 'New Territories'},
+          sort: 'createdAt DESC'
       })
 
       return res.view('restaurant/Homepage', {hk: HKI, kl: kow, nt:NT});
@@ -61,6 +61,15 @@ module.exports = {
         var rt = await Restaurant.find();
 
         return res.view('restaurant/Admin',{restaurant: rt});
+    },
+
+    Detail: async function(req, res){
+        var record = await Restaurant.findOne(req.params.id)
+        
+        if(!record) return res.notFound();
+
+        return res.view('restaurant/detail', {rt: record});
+
     }
   
 

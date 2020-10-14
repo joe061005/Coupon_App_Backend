@@ -31,6 +31,9 @@ module.exports.routes = {
   'GET /Admin' : 'RestaurantController.Admin',
   'POST /Admin' : 'RestaurantController.Admin',
 
+  'GET /detail/:id': 'RestaurantController.Detail',
+  'POST /detail/:id': 'RestaurantController.Detail',
+
 
 
   /***************************************************************************

@@ -100,7 +100,7 @@
       <%if(i > 1) break;%>
       <div class="column card colmar">
         <img src="<%= hk[i].image%>">
-        <a style=font-size:20px;><b><%= hk[i].name%></b></a>
+        <a href="http://localhost:1337/detail/<%= hk[i].id%>" style=font-size:20px;><b><%= hk[i].name%></b></a>
         <p style="font-size: 10px"><%= hk[i].title%></p>
         <br>
         <p style="font-size: 10px">Coins: <%= hk[i].coins%></p>
@@ -114,7 +114,7 @@
         <%if(j > 1) break;%>
         <div class="column card colmar">
           <img src="<%= kl[j].image%>">
-          <a style=font-size:20px;><b><%= kl[j].name%></b></a>
+          <a href="http://localhost:1337/detail/<%= kl[j].id%>" style=font-size:20px;><b><%= kl[j].name%></b></a>
           <p style="font-size: 10px"><%= kl[j].title%></p>
           <br>
           <p style="font-size: 10px">Coins: <%= kl[j].coins%></p>
@@ -128,7 +128,7 @@
         <%if(k > 1) break;%>
         <div class="column card colmar">
           <img src="<%= nt[k].image%>">
-          <a style=font-size:20px;><b><%= nt[k].name%></b></a>
+          <a href= "http://localhost:1337/detail/<%= nt[k].id%>" style=font-size:20px;><b><%= nt[k].name%></b></a>
           <p style="font-size: 10px"><%= nt[k].title%></p>
           <br>
           <p style="font-size: 10px">Coins: <%= nt[k].coins%></p>
