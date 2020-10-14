@@ -5,14 +5,25 @@
  * @help        :: See https://sailsjs.com/docs/concepts/actions
  */
 
-
 module.exports = {
 
     Home: async function(req, res){
-       var 
-      return res.view('restaurant/Homepage');
+      var kow = await Restaurant.find({
+          where: { region: 'Kowloon'},
+          sort: 'validtill DESC'
+      })
 
+      var HKI = await Restaurant.find({
+          where: {region: 'HKIsland'},
+          sort: 'validtill DESC'
+      })
 
+      var NT = await Restaurant.find({
+          where: {region: 'NewTerritories'},
+          sort: 'validtill DESC'
+      })
+
+      return res.view('restaurant/Homepage', {hk: HKI, kl: kow, nt:NT});
     },
 
     Create: async function(req, res){
