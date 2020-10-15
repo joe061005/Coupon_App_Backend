@@ -96,7 +96,7 @@ module.exports = {
             var parsedMax = parseInt(req.query.Maxcoins);
             var parsedMin = parseInt(req.query.Mincoins);
 
-            if (!isNaN(parsedMax) && !isNaN(parseMin)) {
+            if (!isNaN(parsedMax) && !isNaN(parsedMin)) {
                 whereClause.coins = { '>=': parsedMin, '<=': parsedMax };
             } else if (!isNaN(parsedMax)) {
                 whereClause.coins = { '<=': parsedMax };
@@ -105,7 +105,7 @@ module.exports = {
             }
 
             if (req.query.validon) {
-                var date = req.query.validon.toISOString();
+                var date = req.query.validon;
                 whereClause.validtill = { '<=': date };
             }
 
@@ -132,7 +132,7 @@ module.exports = {
             var parsedMax = parseInt(req.body["Maxcoins"]);
             var parsedMin = parseInt(req.body["Mincoins"]);
 
-            if (!isNaN(parsedMax) && !isNaN(parseMin)) {
+            if (!isNaN(parsedMax) && !isNaN(parsedMin)) {
                 whereClause.coins = { '>=': parsedMin, '<=': parsedMax };
             } else if (!isNaN(parsedMax)) {
                 whereClause.coins = { '<=': parsedMax };
@@ -141,7 +141,7 @@ module.exports = {
             }
 
             if (req.body["validon"]) {
-                var date = req.body["validon"].toISOString();
+                var date = req.body["validon"];
                 whereClause.validtill = { '<=': date };
             }
 
@@ -157,7 +157,7 @@ module.exports = {
                 skip: offset
             })
 
-            return res.view('restaurant/search', { rest: thoseRest, numOfRecords: count })
+            return res.view('restaurant/search', { rest: thoseRest, numOfRecords: count, region: req.body["region"], Max: req.body["Maxcoins"], Min: req.body["Mincoins"], Date: req.body["validon"]  })
         }
     }
 
