@@ -7,75 +7,160 @@
 
 module.exports = {
 
-    Home: async function(req, res){
-      var kow = await Restaurant.find({
-          where: { region: 'Kowloon'},
-          sort: 'createdAt DESC'
-      })
+    Home: async function (req, res) {
+        var kow = await Restaurant.find({
+            where: { region: 'Kowloon' },
+            sort: 'createdAt DESC'
+        })
 
-      var HKI = await Restaurant.find({
-          where: {region: 'HK Island'},
-          sort: 'createdAt DESC'
-      })
+        var HKI = await Restaurant.find({
+            where: { region: 'HK Island' },
+            sort: 'createdAt DESC'
+        })
 
-      var NT = await Restaurant.find({
-          where: {region: 'New Territories'},
-          sort: 'createdAt DESC'
-      })
+        var NT = await Restaurant.find({
+            where: { region: 'New Territories' },
+            sort: 'createdAt DESC'
+        })
 
-      return res.view('restaurant/Homepage', {hk: HKI, kl: kow, nt:NT});
+        return res.view('restaurant/Homepage', { hk: HKI, kl: kow, nt: NT });
     },
 
-    Create: async function(req, res){
-        if(req.method == "GET") return res.view('restaurant/create');
+    Create: async function (req, res) {
+        if (req.method == "GET") return res.view('restaurant/create');
 
-        var rest =  await Restaurant.create(req.body).fetch();
+        var rest = await Restaurant.create(req.body).fetch();
 
-        return res.view('restaurant/ok') 
+        return res.view('restaurant/ok')
     },
 
-    Delete: async function(req, res){
+    Delete: async function (req, res) {
         var rt = await Restaurant.findOne(req.params.id);
 
-        if(req.method == "GET") return res.view('restaurant/delete', {rest: rt});
+        if (req.method == "GET") return res.view('restaurant/delete', { rest: rt });
 
         //return res.json(req.body["action"]);
 
-        if(req.body["action"]== "Delete"){
+        if (req.body["action"] == "Delete") {
             var deletedRest = await Restaurant.destroyOne(req.params.id);
 
-            if(!deletedRest) return res.notFound();
-            
-            return res.view('restaurant/ok') 
+            if (!deletedRest) return res.notFound();
 
-        }else if(req.body["action"] == "Update"){
+            return res.view('restaurant/ok')
+
+        } else if (req.body["action"] == "Update") {
             var updatedRest = await Restaurant.updateOne(req.params.id).set(req.body);
 
-            if(!updatedRest) return res.notFound();
+            if (!updatedRest) return res.notFound();
 
-            return res.view('restaurant/ok') 
+            return res.view('restaurant/ok')
         }
     },
 
-    Admin: async function(req, res){
+    Admin: async function (req, res) {
         var rt = await Restaurant.find();
 
-        return res.view('restaurant/Admin',{restaurant: rt});
+        return res.view('restaurant/Admin', { restaurant: rt });
     },
 
-    Detail: async function(req, res){
+    Detail: async function (req, res) {
         var record = await Restaurant.findOne(req.params.id)
-        
-        if(!record) return res.notFound();
 
-        return res.view('restaurant/detail', {rt: record});
+        if (!record) return res.notFound();
+
+        return res.view('restaurant/detail', { rt: record });
 
     },
 
-    Search: async function(req, res){
-        
+    Search: async function (req, res) {
+        var limit = Math.max(req.query.limit, 2) || 2;
+        var offset = Math.max(req.query.offset, 0) || 0;
+
+        if (req.method == "GET") {
+            var haveEle = req.query.region || req.query.Maxcoins || req.query.Mincoins || req.query.validon;
+            if (typeof (haveEle) == 'undefined') {
+                var allrest = await Restaurant.find({
+                    limit: limit,
+                    skip: offset
+                });
+
+                var count = await Restaurant.count();
+
+                return res.view('restaurant/search', { rest: allrest, numOfRecords: count, region: "", Max: "", Min: "", Date: "" })
+            }
+
+            var whereClause = {};
+
+            if (req.query.region) whereClause.region = req.query.region;
+
+            var parsedMax = parseInt(req.query.Maxcoins);
+            var parsedMin = parseInt(req.query.Mincoins);
+
+            if (!isNaN(parsedMax) && !isNaN(parseMin)) {
+                whereClause.coins = { '>=': parsedMin, '<=': parsedMax };
+            } else if (!isNaN(parsedMax)) {
+                whereClause.coins = { '<=': parsedMax };
+            } else if (!isNaN(parsedMin)) {
+                whereClause.coins = { '>=': parsedMin };
+            }
+
+            if (req.query.validon) {
+                var date = req.query.validon.toISOString();
+                whereClause.validtill = { '<=': date };
+            }
+
+            var rt = await Restaurant.find({
+                where: whereClause
+            })
+
+            var len = rt.length;
+
+             rt = await Restaurant.find({
+                where: whereClause,
+                limit: limit,
+                skip: offset
+            })
+
+            return res.view('restaurant/search', { rest: rt, numOfRecords: len, region: req.query.region, Max: req.query.Maxcoins, Min: req.query.Mincoins, Date: req.query.validon })
+
+
+        } else {
+            var whereClause = {};
+
+            if (req.body["region"]) whereClause.region = req.body["region"];
+
+            var parsedMax = parseInt(req.body["Maxcoins"]);
+            var parsedMin = parseInt(req.body["Mincoins"]);
+
+            if (!isNaN(parsedMax) && !isNaN(parseMin)) {
+                whereClause.coins = { '>=': parsedMin, '<=': parsedMax };
+            } else if (!isNaN(parsedMax)) {
+                whereClause.coins = { '<=': parsedMax };
+            } else if (!isNaN(parsedMin)) {
+                whereClause.coins = { '>=': parsedMin };
+            }
+
+            if (req.body["validon"]) {
+                var date = req.body["validon"].toISOString();
+                whereClause.validtill = { '<=': date };
+            }
+
+            var thoseRest = await Restaurant.find({
+                where: whereClause
+            });
+
+            var count = thoseRest.length;
+
+            thoseRest = await Restaurant.find({
+                where: whereClause,
+                limit: limit,
+                skip: offset
+            })
+
+            return res.view('restaurant/search', { rest: thoseRest, numOfRecords: count })
+        }
     }
-  
+
 
 };
 
