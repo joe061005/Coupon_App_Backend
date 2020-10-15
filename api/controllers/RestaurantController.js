@@ -31,7 +31,7 @@ module.exports = {
 
         var rest =  await Restaurant.create(req.body).fetch();
 
-        return res.ok(); 
+        return res.view('restaurant/ok') 
     },
 
     Delete: async function(req, res){
@@ -46,14 +46,14 @@ module.exports = {
 
             if(!deletedRest) return res.notFound();
             
-            return res.ok();
+            return res.view('restaurant/ok') 
 
         }else if(req.body["action"] == "Update"){
             var updatedRest = await Restaurant.updateOne(req.params.id).set(req.body);
 
             if(!updatedRest) return res.notFound();
 
-            return res.ok();
+            return res.view('restaurant/ok') 
         }
     },
 
@@ -70,6 +70,10 @@ module.exports = {
 
         return res.view('restaurant/detail', {rt: record});
 
+    },
+
+    Search: async function(req, res){
+        
     }
   
 

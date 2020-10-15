@@ -34,6 +34,10 @@ module.exports.routes = {
   'GET /detail/:id': 'RestaurantController.Detail',
   'POST /detail/:id': 'RestaurantController.Detail',
 
+  'GET /search': 'RestaurantController.Search',
+  'POST /search': 'RestaurantController.Search',
+
+
 
 
   /***************************************************************************
