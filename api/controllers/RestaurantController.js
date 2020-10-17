@@ -106,7 +106,7 @@ module.exports = {
 
             if (req.query.validon) {
                 var date = req.query.validon;
-                whereClause.validtill = { '<=': date };
+                whereClause.validtill = { '>=': date };
             }
 
             var rt = await Restaurant.find({
@@ -142,7 +142,7 @@ module.exports = {
 
             if (req.body["validon"]) {
                 var date = req.body["validon"];
-                whereClause.validtill = { '<=': date };
+                whereClause.validtill = { '>=': date };
             }
 
             var thoseRest = await Restaurant.find({
