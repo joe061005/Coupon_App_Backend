@@ -34,13 +34,17 @@ module.exports.routes = {
   'GET /detail/:id': 'RestaurantController.Detail',
   'POST /detail/:id': 'RestaurantController.Detail',
 
-  'GET /search': 'RestaurantController.Search',
-  'POST /search': 'RestaurantController.Search',
+  'GET /search': 'RestaurantController.aginate',
+  'POST /search': 'RestaurantController.aginate',
 
   'GET /login': 'UserController.login',
   'POST /login': 'UserController.login',
 
+  'POST /logout': 'UserController.logout',
   'GET /logout': 'UserController.logout',
+
+  'GET /len': 'RestaurantController.len',
+  
 
 
 

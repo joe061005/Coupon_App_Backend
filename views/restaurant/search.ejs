@@ -46,6 +46,8 @@
     }
 </style>
 
+<body onload= "load('<%= req.session.username%>', '<%= req.session.role%>')">
+
 <nav class="navbar" role="navigation" aria-label="main navigation">
     <div class="navbar-brand">
         <a class="navbar-item" href="http://localhost:1337/">
@@ -70,11 +72,11 @@
                 Search
             </a>
 
-            <a href="http://localhost:1337/create" class="navbar-item">
+            <a id = "create" href="http://localhost:1337/create" class="navbar-item">
                 Create
             </a>
 
-            <a href="http://localhost:1337/Admin" class="navbar-item">
+            <a id = "admin" href="http://localhost:1337/Admin" class="navbar-item">
                 Admin
             </a>
 
@@ -82,14 +84,14 @@
 
         <div class="navbar-end">
             <div class="navbar-item">
-                <div class="buttons">
-                    <a class="button is-primary">
-                        <strong>Sign up</strong>
+                <div id = "button" class="buttons">
+                    <a href="http://localhost:1337/login" class="button is-primary" id = "login">
+                      <strong>Log in</strong>
                     </a>
-                    <a class="button is-light">
-                        Log in
+                    <a href="http://localhost:1337/logout" class="button is-light" id = "logout">
+                      Log out
                     </a>
-                </div>
+                  </div>
             </div>
         </div>
     </div>
@@ -105,7 +107,7 @@
     <div class="field column card colmar is-inline-block-desktop">
         <img style="display: block; object-fit: cover;" class="img" src="<%= restaurant.image%>">
         <a href="http://localhost:1337/detail/<%= restaurant.id%>"
-            style=font-size:20px;><b><%= restaurant.name%></b></a>
+            style="font-size:20px;"><b><%= restaurant.name%></b></a>
         <p style="font-size: 10px"><%= restaurant.title%></p>
         <br>
         <p style="font-size: 10px">Coins: <%= restaurant.coins%></p>
@@ -178,6 +180,7 @@
         </li>
     </ul>
 </nav>
+</body>
 
 <script>
     function setPagination() {
@@ -226,3 +229,30 @@
 
     setPagination();
 </script>
+
+<script>
+
+    async function load(name, role){
+      if(!name){
+        var lt = document.getElementById("logout");
+        lt.style.display = "none";
+      }else{
+        var bt= document.getElementById("button");
+        bt.removeChild(document.getElementById("login"));
+        var ele = document.createElement("p");
+        ele.innerHTML = "Hi, " + name;
+        ele.style.marginRight = "10px";
+        bt.insertBefore(ele, bt.children[0]);
+      }
+
+      if(role != "admin"){
+      var cr = document.getElementById("create");
+      var ad = document.getElementById("admin");
+
+      cr.style.display = "none";
+      ad.style.display = "none";
+    }
+  
+    }
+  
+  </script>

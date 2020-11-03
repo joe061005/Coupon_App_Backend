@@ -10,6 +10,13 @@
 
 module.exports.policies = {
 
+  RestaurantController: {
+    Admin: 'isAdmin',
+    Create: 'isAdmin',
+    Delete: 'isAdmin',
+    
+  }
+
   /***************************************************************************
   *                                                                          *
   * Default policy for all controllers and actions, unless overridden.       *

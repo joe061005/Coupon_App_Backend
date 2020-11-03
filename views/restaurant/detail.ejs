@@ -32,82 +32,111 @@
     }
 
     @media only screen and (min-width: 768px) {
-        .flex{
-            display:flex;
+        .flex {
+            display: flex;
         }
     }
 </style>
 
-<nav class="navbar" role="navigation" aria-label="main navigation">
-    <div class="navbar-brand">
-        <a class="navbar-item" href="http://localhost:1337/">
-            <img src="https://pbs.twimg.com/profile_images/1208433111/Qpon_Logo.png" width="112" height="28">
-        </a>
-
-        <a role="button" class="navbar-burger burger" ar-label="menu" aria-exiapanded="false"
-            data-target="navbarBasicExample">
-            <span aria-hidden="true"></span>
-            <span aria-hidden="true"></span>
-            <span aria-hidden="true"></span>
-        </a>
-    </div>
-
-    <div id="navbarBasicExample" class="navbar-menu">
-        <div class="navbar-start">
-            <a href="http://localhost:1337/" class="navbar-item">
-                Home
+<body onload="load('<%= req.session.username%>', '<%= req.session.role%>')">
+    <nav class="navbar" role="navigation" aria-label="main navigation">
+        <div class="navbar-brand">
+            <a class="navbar-item" href="http://localhost:1337/">
+                <img src="https://pbs.twimg.com/profile_images/1208433111/Qpon_Logo.png" width="112" height="28">
             </a>
 
-            <a href="http://localhost:1337/search" class="navbar-item">
-                Search
+            <a role="button" class="navbar-burger burger" ar-label="menu" aria-exiapanded="false"
+                data-target="navbarBasicExample">
+                <span aria-hidden="true"></span>
+                <span aria-hidden="true"></span>
+                <span aria-hidden="true"></span>
             </a>
-
-            <a href="http://localhost:1337/create" class="navbar-item">
-                Create
-            </a>
-
-            <a href="http://localhost:1337/Admin" class="navbar-item">
-                Admin
-            </a>
-
         </div>
 
-        <div class="navbar-end">
-            <div class="navbar-item">
-                <div class="buttons">
-                    <a class="button is-primary">
-                        <strong>Sign up</strong>
-                    </a>
-                    <a class="button is-light">
-                        Log in
-                    </a>
+        <div id="navbarBasicExample" class="navbar-menu">
+            <div class="navbar-start">
+                <a href="http://localhost:1337/" class="navbar-item">
+                    Home
+                </a>
+
+                <a href="http://localhost:1337/search" class="navbar-item">
+                    Search
+                </a>
+
+                <a id="create" href="http://localhost:1337/create" class="navbar-item">
+                    Create
+                </a>
+
+                <a id="admin" href="http://localhost:1337/Admin" class="navbar-item">
+                    Admin
+                </a>
+
+            </div>
+
+            <div class="navbar-end">
+                <div class="navbar-item">
+                    <div id="button" class="buttons">
+                        <a href="http://localhost:1337/login" class="button is-primary" id="login">
+                            <strong>Log in</strong>
+                        </a>
+                        <a href="http://localhost:1337/logout" class="button is-light" id="logout">
+                            Log out
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>
+    </nav>
+
+    <div style="height: 100px;">
     </div>
-</nav>
 
-<div style="height: 100px;">
-</div>
+    <section>
+        <div class=" flex field-group is-mobile">
+            <div class="field is-inline-block-desktop">
+                <figure style="margin-left: 20px; margin-right: 20px;" clasa="is-3by4">
+                    <img style="object-fit: contain;" src="<%= rt.image%>">
+                </figure>
+            </div>
 
-<section>
-    <div class=" flex field-group is-mobile">
-        <div class="field is-inline-block-desktop">
-            <figure style= "margin-left: 20px; margin-right: 20px;" clasa="is-3by4">
-                <img style="object-fit: contain;" src="<%= rt.image%>">
-            </figure>
+            <div style="display:flex; margin-left: 40px; margin-bottom: 100px;" class="field is-inline-block-desktop">
+                <ul>
+                    <li><b><%= rt.name%></b></li>
+                    <li><b><%= rt.title%></b></li>
+                    <li><b>Coins: </b><%= rt.coins%></li>
+                    <li><b>Address: </b><%= rt.mall%>, <%= rt.region%></li>
+                    <li><b>Expiry Date: </b><%= rt.validtill%></li>
+                    <li><%= rt.detail%></li>
+                </ul>
+            </div>
+
         </div>
+    </section>
+</body>
 
-        <div style="display:flex; margin-left: 40px; margin-bottom: 100px;" class="field is-inline-block-desktop">
-            <ul>
-                <li><b><%= rt.name%></b></li>
-                <li><b><%= rt.title%></b></li>
-                <li><b>Coins: </b><%= rt.coins%></li>
-                <li><b>Address: </b><%= rt.mall%>, <%= rt.region%></li>
-                <li><b>Expiry Date: </b><%= rt.validtill%></li>
-                <li><%= rt.detail%></li>
-            </ul>
-        </div>
+<script>
 
-    </div>
-</section>
+    async function load(name, role) {
+        if (!name) {
+            var lt = document.getElementById("logout");
+            lt.style.display = "none";
+        } else {
+            var bt = document.getElementById("button");
+            bt.removeChild(document.getElementById("login"));
+            var ele = document.createElement("p");
+            ele.innerHTML = "Hi, " + name;
+            ele.style.marginRight = "10px";
+            bt.insertBefore(ele, bt.children[0]);
+        }
+
+        if (role != "admin") {
+            var cr = document.getElementById("create");
+            var ad = document.getElementById("admin");
+
+            cr.style.display = "none";
+            ad.style.display = "none";
+        }
+
+    }
+
+</script>

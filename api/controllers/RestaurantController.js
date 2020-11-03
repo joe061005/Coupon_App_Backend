@@ -31,7 +31,7 @@ module.exports = {
 
         var rest = await Restaurant.create(req.body).fetch();
 
-        return res.view('restaurant/ok')
+        return res.redirect("/");
     },
 
     Delete: async function (req, res) {
@@ -46,14 +46,14 @@ module.exports = {
 
             if (!deletedRest) return res.notFound();
 
-            return res.view('restaurant/ok')
+            return res.redirect("/");
 
         } else if (req.body["action"] == "Update") {
             var updatedRest = await Restaurant.updateOne(req.params.id).set(req.body);
 
             if (!updatedRest) return res.notFound();
 
-            return res.view('restaurant/ok')
+            return res.redirect("/");
         }
     },
 
@@ -72,7 +72,80 @@ module.exports = {
 
     },
 
-    Search: async function (req, res) {
+    aginate: async function (req, res) {
+        if (req.wantsJSON) {
+
+            var limit = Math.max(req.query.limit, 2) || 2;
+            var offset = Math.max(req.query.offset, 0) || 0;
+
+            var whereClause = {};
+
+            if (req.query.region) whereClause.region = req.query.region;
+
+            var parsedMax = parseInt(req.query.Maxcoins);
+            var parsedMin = parseInt(req.query.Mincoins);
+
+            if (!isNaN(parsedMax) && !isNaN(parsedMin)) {
+                whereClause.coins = { '>=': parsedMin, '<=': parsedMax };
+            } else if (!isNaN(parsedMax)) {
+                whereClause.coins = { '<=': parsedMax };
+            } else if (!isNaN(parsedMin)) {
+                whereClause.coins = { '>=': parsedMin };
+            }
+
+            if (req.query.validon) {
+                var date = req.query.validon;
+                whereClause.validtill = { '>=': date };
+            }
+
+            rt = await Restaurant.find({
+                where: whereClause,
+                limit: limit,
+                skip: offset
+            })
+
+            return res.json(rt);
+
+        } else {
+
+            var count = await Restaurant.count();
+
+            return res.view('restaurant/aginate', { numOfRecords: count });
+        }
+
+    },
+
+    len: async function (req, res) {
+        if (req.wantsJSON) {
+            var whereClause = {};
+
+            if (req.query.region) whereClause.region = req.query.region;
+
+            var parsedMax = parseInt(req.query.Maxcoins);
+            var parsedMin = parseInt(req.query.Mincoins);
+
+            if (!isNaN(parsedMax) && !isNaN(parsedMin)) {
+                whereClause.coins = { '>=': parsedMin, '<=': parsedMax };
+            } else if (!isNaN(parsedMax)) {
+                whereClause.coins = { '<=': parsedMax };
+            } else if (!isNaN(parsedMin)) {
+                whereClause.coins = { '>=': parsedMin };
+            }
+
+            if (req.query.validon) {
+                var date = req.query.validon;
+                whereClause.validtill = { '>=': date };
+            }
+
+            rt = await Restaurant.find({
+                where: whereClause
+            })
+
+            return res.json(rt);
+        }
+    },
+
+    /*Search: async function (req, res) {
         var limit = Math.max(req.query.limit, 2) || 2;
         var offset = Math.max(req.query.offset, 0) || 0;
 
@@ -115,7 +188,7 @@ module.exports = {
 
             var len = rt.length;
 
-             rt = await Restaurant.find({
+            rt = await Restaurant.find({
                 where: whereClause,
                 limit: limit,
                 skip: offset
@@ -157,9 +230,9 @@ module.exports = {
                 skip: offset
             })
 
-            return res.view('restaurant/search', { rest: thoseRest, numOfRecords: count, region: req.body["region"], Max: req.body["Maxcoins"], Min: req.body["Mincoins"], Date: req.body["validon"]  })
+            return res.view('restaurant/search', { rest: thoseRest, numOfRecords: count, region: req.body["region"], Max: req.body["Maxcoins"], Min: req.body["Mincoins"], Date: req.body["validon"] })
         }
-    }
+    }*/
 
 
 };

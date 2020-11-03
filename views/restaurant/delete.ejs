@@ -29,7 +29,7 @@
     var Kowloon = ["Elements", "Harbour City", "Festival Walk", "MegaBox", "APM"]
     var NewTerritories = ["New Town Plaza", "Tsuen Wan Plaza"]
 
-    function placeSelected(place, ml) {
+    function placeSelected(place, ml, name, role) {
         var mall = document.getElementById("Mall");
         mall.options.length = 0;
 
@@ -74,6 +74,26 @@
         } else {
             mall.disabled = true;
         }
+
+        if (!name) {
+            var lt = document.getElementById("logout");
+            lt.style.display = "none";
+        } else {
+            var bt = document.getElementById("button");
+            bt.removeChild(document.getElementById("login"));
+            var ele = document.createElement("p");
+            ele.innerHTML = "Hi, " + name;
+            ele.style.marginRight = "10px";
+            bt.insertBefore(ele, bt.children[0]);
+        }
+
+        if (role != "admin") {
+            var cr = document.getElementById("create");
+            var ad = document.getElementById("admin");
+
+            cr.style.display = "none";
+            ad.style.display = "none";
+        }
     }
 
 </script>
@@ -90,7 +110,9 @@
     }
 </style>
 
-<body onload="placeSelected('<%= rest.region%>', '<%= rest.mall%>')">
+
+<body
+    onload="placeSelected('<%= rest.region%>', '<%= rest.mall%>', '<%= req.session.username%>', '<%= req.session.role%>')">
 
     <nav class="navbar" role="navigation" aria-label="main navigation">
         <div class="navbar-brand">
@@ -116,11 +138,11 @@
                     Search
                 </a>
 
-                <a href="http://localhost:1337/create" class="navbar-item">
+                <a id="create" href="http://localhost:1337/create" class="navbar-item">
                     Create
                 </a>
 
-                <a href = "http://localhost:1337/Admin" class="navbar-item">
+                <a id="admin" href="http://localhost:1337/Admin" class="navbar-item">
                     Admin
                 </a>
 
@@ -128,12 +150,12 @@
 
             <div class="navbar-end">
                 <div class="navbar-item">
-                    <div class="buttons">
-                        <a class="button is-primary">
-                            <strong>Sign up</strong>
+                    <div id="button" class="buttons">
+                        <a href="http://localhost:1337/login" class="button is-primary" id="login">
+                            <strong>Log in</strong>
                         </a>
-                        <a class="button is-light">
-                            Log in
+                        <a href="http://localhost:1337/logout" class="button is-light" id="logout">
+                            Log out
                         </a>
                     </div>
                 </div>
@@ -239,13 +261,14 @@
 
             <div style="margin-top: 20px" class="field is-inline-block-desktop">
                 <div class="control">
-                    <button name = "action" value = "Delete" style="background-color: red;  margin-right: 620px;" class="button is-link" type="submit" required>Delete</button>
+                    <button name="action" value="Delete" style="background-color: red;  margin-right: 620px;"
+                        class="button is-link" type="submit" required>Delete</button>
                 </div>
             </div>
 
             <div style="margin-top: 20px" class="field is-inline-block-desktop">
                 <div class="control">
-                    <button name = "action" value = "Update" class="button is-link" type="submit" required>submit</button>
+                    <button name="action" value="Update" class="button is-link" type="submit" required>submit</button>
                 </div>
             </div>
 
