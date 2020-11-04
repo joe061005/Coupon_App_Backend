@@ -80,6 +80,10 @@
                     Admin
                 </a>
 
+                <a id="redeem" href="http://localhost:1337/redeem" class="navbar-item">
+                    My Redeemed Coupons
+                </a>
+
             </div>
 
             <div class="navbar-end">
@@ -298,6 +302,11 @@
 
             cr.style.display = "none";
             ad.style.display = "none";
+        }
+
+        if(role != "member"){
+            var re = document.getElementById("redeem");
+            re.style.display = "none";
         }
 
     }

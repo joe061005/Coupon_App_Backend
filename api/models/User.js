@@ -26,6 +26,11 @@ module.exports = {
       defaultsTo: 'nonmember'
     },
 
+    coins: {
+      type: "number",
+      defaultsTo: 2000
+    },
+
 
     //  ╔═╗╔╦╗╔╗ ╔═╗╔╦╗╔═╗
     //  ║╣ ║║║╠╩╗║╣  ║║╚═╗
@@ -35,6 +40,11 @@ module.exports = {
     //  ╔═╗╔═╗╔═╗╔═╗╔═╗╦╔═╗╔╦╗╦╔═╗╔╗╔╔═╗
     //  ╠═╣╚═╗╚═╗║ ║║  ║╠═╣ ║ ║║ ║║║║╚═╗
     //  ╩ ╩╚═╝╚═╝╚═╝╚═╝╩╩ ╩ ╩ ╩╚═╝╝╚╝╚═╝
+
+    clients:{
+      collection: 'Restaurant',
+      via : 'consultants'
+    }
 
   },
 

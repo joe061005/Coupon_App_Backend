@@ -31,6 +31,11 @@
         list-style-type: disc;
     }
 
+    .but{
+        list-style-type: none;
+        margin-top: 20px;
+    }
+
     @media only screen and (min-width: 768px) {
         .flex {
             display: flex;
@@ -71,6 +76,10 @@
                     Admin
                 </a>
 
+                <a id="redeem" href="http://localhost:1337/redeem" class="navbar-item">
+                    My Redeemed Coupons
+                </a>
+
             </div>
 
             <div class="navbar-end">
@@ -107,8 +116,12 @@
                     <li><b>Address: </b><%= rt.mall%>, <%= rt.region%></li>
                     <li><b>Expiry Date: </b><%= rt.validtill%></li>
                     <li><%= rt.detail%></li>
+                    <li class = "but"><button type="button" class="button is-danger" onclick="redeem('<%= req.session.iden%>')">Redeem</button></li>
                 </ul>
+
             </div>
+
+            
 
         </div>
     </section>
@@ -137,6 +150,20 @@
             ad.style.display = "none";
         }
 
+        if(role != "member"){
+            var re = document.getElementById("redeem");
+            re.style.display = "none";
+        }
+
     }
 
+</script>
+
+<script>
+    async function redeem(person){
+        if("<%= rt.quota%>" == "0" ){
+            alert("quota is full")
+        }else if (parseInt("<%= rt.coins%>") > person )
+        var response = await fetch()
+    }
 </script>

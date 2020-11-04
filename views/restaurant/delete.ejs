@@ -94,6 +94,11 @@
             cr.style.display = "none";
             ad.style.display = "none";
         }
+
+        if(role != "member"){
+            var re = document.getElementById("redeem");
+            re.style.display = "none";
+        }
     }
 
 </script>
@@ -144,6 +149,10 @@
 
                 <a id="admin" href="http://localhost:1337/Admin" class="navbar-item">
                     Admin
+                </a>
+
+                <a id="redeem" href="http://localhost:1337/redeem" class="navbar-item">
+                    My Redeemed Coupons
                 </a>
 
             </div>

@@ -145,6 +145,19 @@ module.exports = {
         }
     },
 
+    redeem: async function (req, res) {
+
+    },
+
+    populate: async function(req, res){
+        
+        var rest = await Restaurant.findOne(req.params.id).populate("consultants");
+
+        if(!rest) return res.notFound();
+
+        return res.json(rest);
+    }
+
     /*Search: async function (req, res) {
         var limit = Math.max(req.query.limit, 2) || 2;
         var offset = Math.max(req.query.offset, 0) || 0;

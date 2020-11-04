@@ -117,6 +117,10 @@
                     Admin
                 </a>
 
+                <a id="redeem" href="http://localhost:1337/redeem" class="navbar-item">
+                    My Redeemed Coupons
+                </a>
+
             </div>
 
             <div class="navbar-end">
@@ -230,27 +234,32 @@
 
 <script>
 
-    async function load(name, role){
-      if(!name){
-        var lt = document.getElementById("logout");
-        lt.style.display = "none";
-      }else{
-        var bt= document.getElementById("button");
-        bt.removeChild(document.getElementById("login"));
-        var ele = document.createElement("p");
-        ele.innerHTML = "Hi, " + name;
-        ele.style.marginRight = "10px";
-        bt.insertBefore(ele, bt.children[0]);
-      }
+    async function load(name, role) {
+        if (!name) {
+            var lt = document.getElementById("logout");
+            lt.style.display = "none";
+        } else {
+            var bt = document.getElementById("button");
+            bt.removeChild(document.getElementById("login"));
+            var ele = document.createElement("p");
+            ele.innerHTML = "Hi, " + name;
+            ele.style.marginRight = "10px";
+            bt.insertBefore(ele, bt.children[0]);
+        }
 
-      if (role != "admin") {
+        if (role != "admin") {
             var cr = document.getElementById("create");
             var ad = document.getElementById("admin");
 
             cr.style.display = "none";
             ad.style.display = "none";
         }
-  
+
+        if (role != "member") {
+            var re = document.getElementById("redeem");
+            re.style.display = "none";
+        }
+
     }
-  
-  </script>
+
+</script>

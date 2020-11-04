@@ -26,7 +26,7 @@
   });
 </script>
 
-<body onload= "load('<%= req.session.username%>', '<%= req.session.role%>')">
+<body onload="load('<%= req.session.username%>', '<%= req.session.role%>')">
   <nav class="navbar" role="navigation" aria-label="main navigation">
     <div class="navbar-brand">
       <a class="navbar-item" href="http://localhost:1337/">
@@ -51,23 +51,28 @@
           Search
         </a>
 
-        <a id = "create" href="http://localhost:1337/create" class="navbar-item">
+        <a id="create" href="http://localhost:1337/create" class="navbar-item">
           Create
         </a>
 
-        <a id = "admin" href="http://localhost:1337/Admin" class="navbar-item">
+        <a id="admin" href="http://localhost:1337/Admin" class="navbar-item">
           Admin
         </a>
+
+        <a id="redeem" href="http://localhost:1337/redeem" class="navbar-item">
+          My Redeemed Coupons
+        </a>
+
 
       </div>
 
       <div class="navbar-end">
         <div class="navbar-item">
-          <div id = "button" class="buttons">
-            <a href="http://localhost:1337/login" class="button is-primary" id = "login">
+          <div id="button" class="buttons">
+            <a href="http://localhost:1337/login" class="button is-primary" id="login">
               <strong>Log in</strong>
             </a>
-            <a href="http://localhost:1337/logout" class="button is-light" id = "logout">
+            <a href="http://localhost:1337/logout" class="button is-light" id="logout">
               Log out
             </a>
           </div>
@@ -129,13 +134,13 @@
 
 <script>
 
-  async function load(name, role){
-    if(!name){
+  async function load(name, role) {
+    if (!name) {
       var lt = document.getElementById("logout");
       lt.style.display = "none";
-    }else{
-      
-      var bt= document.getElementById("button");
+    } else {
+
+      var bt = document.getElementById("button");
       bt.removeChild(document.getElementById("login"));
       var ele = document.createElement("p");
       ele.innerHTML = "Hi, " + name;
@@ -143,12 +148,17 @@
       bt.insertBefore(ele, bt.children[0]);
     }
 
-    if(role != "admin"){
+    if (role != "admin") {
       var cr = document.getElementById("create");
       var ad = document.getElementById("admin");
 
       cr.style.display = "none";
       ad.style.display = "none";
+    }
+
+    if (role != "member") {
+      var re = document.getElementById("redeem");
+      re.style.display = "none";
     }
 
   }
