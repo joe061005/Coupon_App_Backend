@@ -22,8 +22,8 @@ module.exports = {
 
     role: {
       type: 'string',
-      isIn: ['admin', 'member', 'nonmember'],
-      defaultsTo: 'nonmember'
+      isIn: ['admin', 'member'],
+      defaultsTo: 'member'
     },
 
     coins: {

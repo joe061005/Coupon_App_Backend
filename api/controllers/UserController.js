@@ -26,7 +26,7 @@ module.exports = {
             req.session.username = user.username;
             req.session.iden = user.id;
             req.session.role = user.role;
-            
+            req.session.coins = user.coins;
             return res.json(user);
         }
 
@@ -38,6 +38,7 @@ module.exports = {
             req.session.username = user.username;
             req.session.iden = user.id;
             req.session.role = user.role;
+            req.session.coins = user.coins;
             return res.json(user);
         });
     },
@@ -63,36 +64,71 @@ module.exports = {
 
     add: async function (req, res) {
 
+        if (req.wantsJSON) {
+
+            if (!await User.findOne(req.params.id)) return res.status(404).json("User not found.");
+
+            var thatRest = await Restaurant.findOne(req.params.fk).populate("consultants", { id: req.params.id });
+
+            if (!thatRest) return res.status(404).json("Restaurant not found.");
+
+            if (thatRest.consultants.length > 0)
+                return res.status(409).json("Already added.");   // conflict
+
+            await User.addToCollection(req.params.id, "clients").members(req.params.fk);
+
+            return res.ok();
+        }
+
+    },
+
+    update: async function (req, res) {
+        if (req.wantsJSON) {
+
+            var user = await User.findOne(req.params.id);
+
+            var rest = await Restaurant.findOne(req.params.fk);
+
+            await User.updateOne(req.params.id).set({
+                coins: (user.coins - rest.coins)
+            })
+
+            req.session.coins = user.coins - rest.coins;
+
+            await Restaurant.updateOne(req.params.fk).set({
+                quota: (rest.quota - 1)
+            })
+
+            return res.ok();
+        }
+
+    },
+
+    remove: async function (req, res) {
+
         if (!await User.findOne(req.params.id)) return res.status(404).json("User not found.");
 
         var thatRest = await Restaurant.findOne(req.params.fk).populate("consultants", { id: req.params.id });
 
         if (!thatRest) return res.status(404).json("Restaurant not found.");
 
-        if (thatRest.consultants.length > 0)
-            return res.status(409).json("Already added.");   // conflict
-
-        await User.addToCollection(req.params.id, "clients").members(req.params.fk);
-
-        return res.redirect("/");
-
-    },
-    
-    remove: async function (req, res) {
-
-        if (!await User.findOne(req.params.id)) return res.status(404).json("User not found.");
-        
-        var thatRest = await Restaurant.findOne(req.params.fk).populate("consultants", {id: req.params.id});
-        
-        if (!thatRest) return res.status(404).json("Restaurant not found.");
-    
         if (thatRest.consultants.length == 0)
             return res.status(409).json("Nothing to delete.");    // conflict
-    
+
         await User.removeFromCollection(req.params.id, "clients").members(req.params.fk);
-    
-        return res.redirect("/");
+
+        return res.ok();
     },
+
+    check: async function(req, res){
+        var thatRest = await Restaurant.findOne(req.params.fk).populate("consultants", { id: req.params.id });
+
+        if(thatRest.consultants.length > 0){
+           return res.status(409).json("Already added.");
+        }else{
+            return res.ok();
+        }
+    }
 
 
 };
