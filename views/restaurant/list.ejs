@@ -27,23 +27,17 @@
 </script>
 
 <style>
-    ul {
-        list-style-type: disc;
+    #intro {
+        margin: 40px;
     }
 
-    .but {
-        list-style-type: none;
-        margin-top: 20px;
-    }
-
-    @media only screen and (min-width: 768px) {
-        .flex {
-            display: flex;
-        }
+    .colmar {
+        margin: 20px;
     }
 </style>
 
-<body onload="load('<%= req.session.username%>', '<%= req.session.role%>', '<%= req.session.iden%>')">
+<body onload="load('<%= req.session.username%>', '<%= req.session.role%>')">
+
     <nav class="navbar" role="navigation" aria-label="main navigation">
         <div class="navbar-brand">
             <a class="navbar-item" href="http://localhost:1337/">
@@ -96,42 +90,14 @@
             </div>
         </div>
     </nav>
-
-    <div style="height: 100px;">
-    </div>
-
-    <section>
-        <div class=" flex field-group is-mobile">
-            <div class="field is-inline-block-desktop">
-                <figure style="margin-left: 20px; margin-right: 20px;" clasa="is-3by4">
-                    <img style="object-fit: contain;" src="<%= rt.image%>">
-                </figure>
-            </div>
-
-            <div style="display:flex; margin-left: 40px; margin-bottom: 100px;" class="field is-inline-block-desktop">
-                <ul>
-                    <li><b><%= rt.name%></b></li>
-                    <li><b><%= rt.title%></b></li>
-                    <li><b>Coins: </b><%= rt.coins%></li>
-                    <li><b>Address: </b><%= rt.mall%>, <%= rt.region%></li>
-                    <li><b>Expiry Date: </b><%= rt.validtill%></li>
-                    <li><%= rt.detail%></li>
-                    <li class="but"><button id="bt" type="button" class="button is-danger"
-                            onclick="redeem('<%= req.session.iden%>','<%=req.session.coins%>', '<%=req.session.role%>')">Redeem</button>
-                    </li>
-                </ul>
-
-            </div>
-
-
-
-        </div>
-    </section>
 </body>
+
+
+
 
 <script>
 
-    async function load(name, role, id) {
+    async function load(name, role) {
         if (!name) {
             var lt = document.getElementById("logout");
             lt.style.display = "none";
@@ -150,61 +116,13 @@
 
             cr.style.display = "none";
             ad.style.display = "none";
-        } else {
-            var bt = document.getElementById("bt");
-            bt.innerHTML = "check"
+        }
 
+        if (role != "member") {
             var re = document.getElementById("redeem");
             re.style.display = "none";
         }
 
-        if (role != "member" && role != "admin") {
-            var re = document.getElementById("redeem");
-            re.style.display = "none";
-
-            var bt = document.getElementById("bt");
-            bt.style.display = "none"
-        }
-
-        var response = await fetch('/check/' + id + '/' + '<%= rt.id%>' ,{
-            method: 'GET'
-        })
-
-        if(response.status == 409){
-            var bt = document.getElementById("bt");
-            bt.style.display = "none"
-        }
-
     }
 
-</script>
-
-<script>
-    async function redeem(person, coins, role) {
-        if (role != "admin") {
-            if ("<%= rt.quota%>" == "0") {
-                alert("quota is full");
-            } else if (parseInt("<%= rt.coins%>") > coins) {
-                alert("no enough coins");
-            } else {
-                var response = await fetch('/user/' + person + '/clients/add/' + '<%= rt.id%>', {
-                    method: 'POST'
-                })
-
-                var response2 = await fetch('/user/' + person + '/update/' + '<%= rt.id%>',{
-                    method:'PUT'
-                })
-
-                if (response.ok && response2.ok) {
-                    alert("successfully added");
-                    location.assign("/");
-                } else {
-                    var msg = await response.json();
-                    alert(msg);
-                }
-            }
-        }else{
-            
-        }
-    }
 </script>

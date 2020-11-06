@@ -102,6 +102,7 @@
             <th>Title</th>
             <th>Restaurant</th>
             <th></th>
+            <th></th>
         </tr>
         <% restaurant.forEach(function(rest){ %>
         <tr>
@@ -109,6 +110,7 @@
             <td><%= rest.title%></td>
             <td><%=rest.name%></td>
             <td><a href="http://localhost:1337/delete/<%= rest.id%>">Update</a></td>
+            <td><a href = "http://localhost:1337/list">Redeemed Members</a></td>
         </tr>
 
         <% }); %>
