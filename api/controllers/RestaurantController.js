@@ -165,11 +165,20 @@ module.exports = {
 
     populate: async function (req, res) {
 
+        if(res.wantsJSON){
+
         var rest = await Restaurant.findOne(req.params.id).populate("consultants");
 
-        if (!rest) return res.notFound();
+        if (!rest) return res.snotFound();
 
         return res.json(rest);
+
+        }else{
+
+            var rest = await Restaurant.findOne(req.params.id);
+
+            return res.view('restaurant/list', {rt: rest});
+        }
     }
 
     /*Search: async function (req, res) {

@@ -1,3 +1,4 @@
+
 <script>
     document.addEventListener('DOMContentLoaded', () => {
 
@@ -33,6 +34,10 @@
 
     .colmar {
         margin: 20px;
+    }
+
+    .tb{
+        margin: 40px;
     }
 </style>
 
@@ -90,6 +95,26 @@
             </div>
         </div>
     </nav>
+
+    <section id="intro">
+        <div>
+            <p><b>Title: <%= rt.title%></b></p>
+            <p><b>Restaurant: <%= rt.name%></b></p>
+            <p><b>quota: <%= rt.quota%></b></p>
+            <p><b>coins: <%= rt.coins%></b></p>
+            <br>
+        </div>
+    </section>
+
+    <section>
+        <table id="table" class="tb table is-bordered is-striped is-hoverable ">
+            <tr>
+                <td>User id</td>
+                <td>User Name</td>
+            </tr>
+        </table>
+    </section>
+
 </body>
 
 
@@ -121,6 +146,19 @@
         if (role != "member") {
             var re = document.getElementById("redeem");
             re.style.display = "none";
+        }
+
+        var response = await fetch("/list/<%= rt.id%>", {
+            method: 'GET'
+        });
+
+        if(response.ok){
+            
+            var data = await response.json();
+            console.log(data);
+
+        }else if (response.status == 404){
+
         }
 
     }

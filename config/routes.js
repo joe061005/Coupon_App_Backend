@@ -57,8 +57,8 @@ module.exports.routes = {
 
   'GET /check/:id/:fk' : 'UserController.check',
 
-  'GET /list' : 'RestaurantController.populate',
-  'POST /list' : 'RestaurantController.populate',
+  'GET /list/:id' : 'RestaurantController.populate',
+  'POST /list/:id' : 'RestaurantController.populate',
 
 
 

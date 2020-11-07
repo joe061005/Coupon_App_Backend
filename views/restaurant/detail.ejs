@@ -152,7 +152,7 @@
             ad.style.display = "none";
         } else {
             var bt = document.getElementById("bt");
-            bt.innerHTML = "check"
+            bt.style.display = "none"
 
             var re = document.getElementById("redeem");
             re.style.display = "none";
@@ -181,7 +181,6 @@
 
 <script>
     async function redeem(person, coins, role) {
-        if (role != "admin") {
             if ("<%= rt.quota%>" == "0") {
                 alert("quota is full");
             } else if (parseInt("<%= rt.coins%>") > coins) {
@@ -203,8 +202,6 @@
                     alert(msg);
                 }
             }
-        }else{
-            
-        }
+
     }
 </script>
