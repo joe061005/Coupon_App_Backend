@@ -1,4 +1,3 @@
-
 <script>
     document.addEventListener('DOMContentLoaded', () => {
 
@@ -36,7 +35,7 @@
         margin: 20px;
     }
 
-    .tb{
+    .tb {
         margin: 40px;
     }
 </style>
@@ -111,6 +110,7 @@
             <tr>
                 <td>User id</td>
                 <td>User Name</td>
+                <td>Coins</td>
             </tr>
         </table>
     </section>
@@ -152,12 +152,23 @@
             method: 'GET'
         });
 
-        if(response.ok){
-            
+        if (response.ok) {
             var data = await response.json();
-            console.log(data);
+            var users = data["consultants"];
 
-        }else if (response.status == 404){
+            var table = document.getElementById("table");
+
+            users.forEach(function (us) {
+
+                var tml = "<tr>";
+                tml += "<td>" + us.id + "</td>";
+                tml += "<td>" + us.username + "</td>";
+                tml += "<td>" + us.coins + "</td>"
+                tml += "</tr>"; 
+
+                table.innerHTML += tml;
+
+            })
 
         }
 

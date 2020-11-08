@@ -9,38 +9,43 @@ module.exports = {
 
     login: async function (req, res) {
 
-        if (req.method == "GET") return res.view('user/login');
+        if (req.wantsJSON) {
 
-        if (!req.body.username || !req.body.password) return res.badRequest();
+            if (!req.body.username || !req.body.password) return res.badRequest();
 
-        var user = await User.findOne({ username: req.body.username });
+            var user = await User.findOne({ username: req.body.username });
 
-        if (!user) return res.status(401).json("User not found");
+            if (!user) return res.status(401).json("User not found");
 
-        var match = await sails.bcrypt.compare(req.body.password, user.password);
+            var match = await sails.bcrypt.compare(req.body.password, user.password);
 
-        if (!match) return res.status(401).json("Wrong Password");
+            if (!match) return res.status(401).json("Wrong Password");
 
-        //Reuse existing session 
-        if (!req.session.username) {
-            req.session.username = user.username;
-            req.session.iden = user.id;
-            req.session.role = user.role;
-            req.session.coins = user.coins;
-            return res.json(user);
+            //Reuse existing session 
+            if (!req.session.username) {
+                req.session.username = user.username;
+                req.session.iden = user.id;
+                req.session.role = user.role;
+                req.session.coins = user.coins;
+                return res.json(user);
+            }
+
+            // Start a new session for the new login user
+            req.session.regenerate(function (err) {
+
+                if (err) return res.serverError(err);
+
+                req.session.username = user.username;
+                req.session.iden = user.id;
+                req.session.role = user.role;
+                req.session.coins = user.coins;
+                return res.json(user);
+            });
+        } else {
+
+            return res.view('user/login');
         }
 
-        // Start a new session for the new login user
-        req.session.regenerate(function (err) {
-
-            if (err) return res.serverError(err);
-
-            req.session.username = user.username;
-            req.session.iden = user.id;
-            req.session.role = user.role;
-            req.session.coins = user.coins;
-            return res.json(user);
-        });
     },
 
     logout: async function (req, res) {
@@ -55,11 +60,24 @@ module.exports = {
 
     populate: async function (req, res) {
 
-        var user = await User.findOne(req.params.id).populate("clients");
+        if (req.wantsJSON) {
 
-        if (!user) return res.notFound();
+            var rest = await Restaurant.findOne(req.params.id).populate("consultants");
 
-        return res.json(user);
+            if (!rest) return res.notFound();
+
+            return res.json(rest);
+
+        } else {
+
+            //var rest = await Restaurant.findOne(req.params.id).populate("consultants");
+
+            // return res.json(rest);
+
+            var rest = await Restaurant.findOne(req.params.id);
+
+            return res.view('restaurant/list', { rt: rest });
+        }
     },
 
     add: async function (req, res) {
@@ -120,12 +138,12 @@ module.exports = {
         return res.ok();
     },
 
-    check: async function(req, res){
+    check: async function (req, res) {
         var thatRest = await Restaurant.findOne(req.params.fk).populate("consultants", { id: req.params.id });
 
-        if(thatRest.consultants.length > 0){
-           return res.status(409).json("Already added.");
-        }else{
+        if (thatRest.consultants.length > 0) {
+            return res.status(409).json("Already added.");
+        } else {
             return res.ok();
         }
     }

@@ -9,6 +9,7 @@
  * https://sailsjs.com/config/bootstrap
  */
 
+
 module.exports.bootstrap = async function () {
 
   // By convention, this is a good place to set up fake data during development.
@@ -59,17 +60,39 @@ module.exports.bootstrap = async function () {
 
     await User.createEach([
       { username: "admin", password: hash, role: 'admin' },
-      { username: "member", password: hash, role:'member'},
+      { username: "member", password: hash, role: 'member' },
+      { username: "member2", password: hash, role: 'member' },
+      { username: "member3", password: hash, role: 'member' },
+
       // etc.
     ]);
 
-    //const martin = await Person.findOne({ name: "Martin Choy" });
-    //const kenny = await Person.findOne({ name: "Kenny Cheng" });
-    //const admin = await User.findOne({ username: "admin" });
-    //const boss = await User.findOne({ username: "boss" });
+    const TamJaiSamGor = await Restaurant.findOne({ name: "TamJai SamGor" });
+    const ANAGura = await Restaurant.findOne({ name: "ANA Gura" });
+    const GreyhoundCafe = await Restaurant.findOne({ name: "Greyhound Cafe" });
+    const MangoTree = await Restaurant.findOne({ name: "Mango Tree" });
+    const Yoogane = await Restaurant.findOne({  name: "Yoogane" });
+    const Fairwood = await Restaurant.findOne({ name: "Fairwood" });
 
-    //await User.addToCollection(admin.id, 'clients').members(kenny.id);
-    //await User.addToCollection(boss.id, 'clients').members([martin.id, kenny.id]);
+    const member = await User.findOne({ username: "member" });
+    const member2 = await User.findOne({ username: "member2" });
+    const member3 = await User.findOne({ username: "member3"})
+
+    await User.addToCollection(member.id, 'clients').members(TamJaiSamGor.id);
+    await User.addToCollection(member.id, 'clients').members(ANAGura.id);
+    await User.addToCollection(member.id, 'clients').members(GreyhoundCafe.id);
+    await User.addToCollection(member.id, 'clients').members(MangoTree.id);
+    await User.addToCollection(member.id, 'clients').members(Fairwood .id);
+
+    await User.addToCollection(member2.id, 'clients').members(TamJaiSamGor.id);
+    await User.addToCollection(member2.id, 'clients').members(MangoTree.id);
+    await User.addToCollection(member2.id, 'clients').members(ANAGura .id);
+    await User.addToCollection(member2.id, 'clients').members(Yoogane .id);
+
+    await User.addToCollection(member3.id, 'clients').members(TamJaiSamGor.id);
+    await User.addToCollection(member3.id, 'clients').members(Yoogane.id);
+    await User.addToCollection(member3.id, 'clients').members(Fairwood .id);
+
 
   }
 
