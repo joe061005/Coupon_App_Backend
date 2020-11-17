@@ -74,7 +74,7 @@ module.exports = {
 
             // return res.json(rest);
 
-            var rest = await Restaurant.findOne(req.params.id);
+            var rest = await Restaurant.findOne(req.params.restid);
 
             return res.view('restaurant/list', { rt: rest });
         }

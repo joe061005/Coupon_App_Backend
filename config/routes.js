@@ -25,14 +25,14 @@ module.exports.routes = {
   'GET /create': 'RestaurantController.Create',
   'POST /create': 'RestaurantController.Create',
 
-  'GET /delete/:id': 'RestaurantController.Delete',
-  'POST /delete/:id': 'RestaurantController.Delete',
+  'GET /delete/:restid': 'RestaurantController.Delete',
+  'POST /delete/:restid': 'RestaurantController.Delete',
 
   'GET /Admin': 'RestaurantController.Admin',
   'POST /Admin': 'RestaurantController.Admin',
 
-  'GET /detail/:id': 'RestaurantController.Detail',
-  'POST /detail/:id': 'RestaurantController.Detail',
+  'GET /detail/:restid': 'RestaurantController.Detail',
+  'POST /detail/:restid': 'RestaurantController.Detail',
 
   'GET /search': 'RestaurantController.aginate',
   'POST /search': 'RestaurantController.aginate',
@@ -55,8 +55,8 @@ module.exports.routes = {
 
   'GET /check/:fk' : 'UserController.check',
 
-  'GET /list/:id' : 'UserController.populate',
-  'POST /list/:id' : 'UserController.populate',
+  'GET /list/:restid' : 'UserController.populate',
+  'POST /list/:restid' : 'UserController.populate',
 
 
 

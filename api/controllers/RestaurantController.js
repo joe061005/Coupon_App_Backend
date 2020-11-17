@@ -35,21 +35,21 @@ module.exports = {
     },
 
     Delete: async function (req, res) {
-        var rt = await Restaurant.findOne(req.params.id);
+        var rt = await Restaurant.findOne(req.params.restid);
 
         if (req.method == "GET") return res.view('restaurant/delete', { rest: rt });
 
         //return res.json(req.body["action"]);
 
         if (req.body["action"] == "Delete") {
-            var deletedRest = await Restaurant.destroyOne(req.params.id);
+            var deletedRest = await Restaurant.destroyOne(req.params.restid);
 
             if (!deletedRest) return res.notFound();
 
             return res.redirect("/");
 
         } else if (req.body["action"] == "Update") {
-            var updatedRest = await Restaurant.updateOne(req.params.id).set(req.body);
+            var updatedRest = await Restaurant.updateOne(req.params.restid).set(req.body);
 
             if (!updatedRest) return res.notFound();
 
@@ -64,7 +64,7 @@ module.exports = {
     },
 
     Detail: async function (req, res) {
-        var record = await Restaurant.findOne(req.params.id)
+        var record = await Restaurant.findOne(req.params.restid)
 
         if (!record) return res.notFound();
 
