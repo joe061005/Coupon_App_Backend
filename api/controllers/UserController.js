@@ -122,29 +122,17 @@ module.exports = {
 
     },
 
-    remove: async function (req, res) {
-
-        if (!await User.findOne(req.params.id)) return res.status(404).json("User not found.");
-
-        var thatRest = await Restaurant.findOne(req.params.fk).populate("consultants", { id: req.params.id });
-
-        if (!thatRest) return res.status(404).json("Restaurant not found.");
-
-        if (thatRest.consultants.length == 0)
-            return res.status(409).json("Nothing to delete.");    // conflict
-
-        await User.removeFromCollection(req.params.id, "clients").members(req.params.fk);
-
-        return res.ok();
-    },
 
     check: async function (req, res) {
-        var thatRest = await Restaurant.findOne(req.params.fk).populate("consultants", { id: req.session.iden });
 
-        if (thatRest.consultants.length > 0) {
-            return res.status(409).json("Already added.");
-        } else {
-            return res.ok();
+        if (req.wantsJSON) {
+            var thatRest = await Restaurant.findOne(req.params.fk).populate("consultants", { id: req.session.iden });
+
+            if (thatRest.consultants.length > 0) {
+                return res.status(409).json("Already added.");
+            } else {
+                return res.ok();
+            }
         }
     }
 

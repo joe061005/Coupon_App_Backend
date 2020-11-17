@@ -8,22 +8,30 @@
 module.exports = {
 
     Home: async function (req, res) {
-        var kow = await Restaurant.find({
-            where: { region: 'Kowloon' },
-            sort: 'createdAt DESC'
-        })
+        if (req.wantsJSON) {
 
-        var HKI = await Restaurant.find({
-            where: { region: 'HK Island' },
-            sort: 'createdAt DESC'
-        })
+            var rt = await Restaurant.find();
 
-        var NT = await Restaurant.find({
-            where: { region: 'New Territories' },
-            sort: 'createdAt DESC'
-        })
+            return res.json(rt)
 
-        return res.view('restaurant/Homepage', { hk: HKI, kl: kow, nt: NT });
+        } else {
+            var kow = await Restaurant.find({
+                where: { region: 'Kowloon' },
+                sort: 'createdAt DESC'
+            })
+
+            var HKI = await Restaurant.find({
+                where: { region: 'HK Island' },
+                sort: 'createdAt DESC'
+            })
+
+            var NT = await Restaurant.find({
+                where: { region: 'New Territories' },
+                sort: 'createdAt DESC'
+            })
+
+            return res.view('restaurant/Homepage', { hk: HKI, kl: kow, nt: NT });
+        }
     },
 
     Create: async function (req, res) {
@@ -68,7 +76,14 @@ module.exports = {
 
         if (!record) return res.notFound();
 
-        return res.view('restaurant/detail', { rt: record });
+        if (req.wantsJSON) {
+          
+            return res.json(record);
+
+        } else {
+            
+            return res.view('restaurant/detail', { rt: record });
+        }
 
     },
 
@@ -163,7 +178,7 @@ module.exports = {
         }
     },
 
-    
+
 
     /*Search: async function (req, res) {
         var limit = Math.max(req.query.limit, 2) || 2;
