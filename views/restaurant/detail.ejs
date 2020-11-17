@@ -166,7 +166,7 @@
             bt.style.display = "none"
         }
 
-        var response = await fetch('/check/' + id + '/' + '<%= rt.id%>' ,{
+        var response = await fetch('/check/<%= rt.id%>' ,{
             method: 'GET'
         })
 
@@ -186,11 +186,11 @@
             } else if (parseInt("<%= rt.coins%>") > coins) {
                 alert("no enough coins");
             } else {
-                var response = await fetch('/user/' + person + '/clients/add/' + '<%= rt.id%>', {
+                var response = await fetch('/user/clients/add/' + '<%= rt.id%>', {
                     method: 'POST'
                 })
 
-                var response2 = await fetch('/user/' + person + '/update/' + '<%= rt.id%>',{
+                var response2 = await fetch('/user/update/' + '<%= rt.id%>',{
                     method:'PUT'
                 })
 

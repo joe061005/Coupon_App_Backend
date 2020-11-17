@@ -62,7 +62,7 @@ module.exports = {
 
         if (req.wantsJSON) {
 
-            var rest = await Restaurant.findOne(req.params.id).populate("consultants");
+            var rest = await Restaurant.findOne(req.session.iden).populate("consultants");
 
             if (!rest) return res.notFound();
 
@@ -84,16 +84,16 @@ module.exports = {
 
         if (req.wantsJSON) {
 
-            if (!await User.findOne(req.params.id)) return res.status(404).json("User not found.");
+            if (!await User.findOne(req.session.iden)) return res.status(404).json("User not found.");
 
-            var thatRest = await Restaurant.findOne(req.params.fk).populate("consultants", { id: req.params.id });
+            var thatRest = await Restaurant.findOne(req.params.fk).populate("consultants", { id: req.session.iden });
 
             if (!thatRest) return res.status(404).json("Restaurant not found.");
 
             if (thatRest.consultants.length > 0)
                 return res.status(409).json("Already added.");   // conflict
 
-            await User.addToCollection(req.params.id, "clients").members(req.params.fk);
+            await User.addToCollection(req.session.iden, "clients").members(req.params.fk);
 
             return res.ok();
         }
@@ -103,11 +103,11 @@ module.exports = {
     update: async function (req, res) {
         if (req.wantsJSON) {
 
-            var user = await User.findOne(req.params.id);
+            var user = await User.findOne(req.session.iden);
 
             var rest = await Restaurant.findOne(req.params.fk);
 
-            await User.updateOne(req.params.id).set({
+            await User.updateOne(req.session.iden).set({
                 coins: (user.coins - rest.coins)
             })
 
@@ -139,7 +139,7 @@ module.exports = {
     },
 
     check: async function (req, res) {
-        var thatRest = await Restaurant.findOne(req.params.fk).populate("consultants", { id: req.params.id });
+        var thatRest = await Restaurant.findOne(req.params.fk).populate("consultants", { id: req.session.iden });
 
         if (thatRest.consultants.length > 0) {
             return res.status(409).json("Already added.");

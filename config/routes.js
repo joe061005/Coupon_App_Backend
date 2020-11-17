@@ -49,13 +49,11 @@ module.exports.routes = {
   'GET /redeem': 'RestaurantController.redeem',
   'POST /redeem': 'RestaurantController.redeem',
 
-  'GET /user/:id/clients': 'UserController.populate',
-  'POST /user/:id/clients/add/:fk': 'UserController.add',
-  'DELETE /user/:id/clients/remove/:fk': 'UserController.remove',
+  'POST /user/clients/add/:fk': 'UserController.add',
 
-  'PUT /user/:id/update/:fk': 'UserController.update',
+  'PUT /user/update/:fk': 'UserController.update',
 
-  'GET /check/:id/:fk' : 'UserController.check',
+  'GET /check/:fk' : 'UserController.check',
 
   'GET /list/:id' : 'UserController.populate',
   'POST /list/:id' : 'UserController.populate',
