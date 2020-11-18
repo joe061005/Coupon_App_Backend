@@ -11,6 +11,8 @@ module.exports = {
 
         if (req.wantsJSON) {
 
+            //console.log("login");
+
             if (!req.body.username || !req.body.password) return res.badRequest();
 
             var user = await User.findOne({ username: req.body.username });
@@ -27,6 +29,7 @@ module.exports = {
                 req.session.iden = user.id;
                 req.session.role = user.role;
                 req.session.coins = user.coins;
+                //console.log(req.session.iden);
                 return res.json(user);
             }
 
@@ -39,6 +42,7 @@ module.exports = {
                 req.session.iden = user.id;
                 req.session.role = user.role;
                 req.session.coins = user.coins;
+               // console.log(req.session.iden);
                 return res.json(user);
             });
         } else {
@@ -50,9 +54,15 @@ module.exports = {
 
     logout: async function (req, res) {
 
+       // console.log("logout")
+
         req.session.destroy(function (err) {
 
             if (err) return res.serverError(err);
+
+            if(req.wantsJSON){
+                return res.ok();
+            }
 
             return res.redirect("/login");
         });

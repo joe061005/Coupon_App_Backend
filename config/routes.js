@@ -37,11 +37,11 @@ module.exports.routes = {
   'GET /search': 'RestaurantController.aginate',
   'POST /search': 'RestaurantController.aginate',
 
-  'GET /login': 'UserController.login',  // for testing only
+  'GET /login': 'UserController.login',  
   'POST /login': 'UserController.login',
 
   'POST /logout': 'UserController.logout',
-  'GET /logout': 'UserController.logout',
+  'GET /logout': 'UserController.logout',  // for testing only
 
   'GET /len': 'RestaurantController.len',
   'POST /len': 'RestaurantController.len',
