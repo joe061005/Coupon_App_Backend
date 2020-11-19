@@ -58,6 +58,9 @@ module.exports.routes = {
   'GET /list/:restid' : 'UserController.populate',
   'POST /list/:restid' : 'UserController.populate',
 
+  'GET /mall/:Mallname' : 'RestaurantController.findRest',
+  'POST /mall/:Mallname' : 'RestaurantController.findRest',
+
 
 
 

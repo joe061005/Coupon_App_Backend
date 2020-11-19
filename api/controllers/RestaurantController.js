@@ -5,6 +5,7 @@
  * @help        :: See https://sailsjs.com/docs/concepts/actions
  */
 
+
 module.exports = {
 
     Home: async function (req, res) {
@@ -177,6 +178,17 @@ module.exports = {
             return res.view('restaurant/redeem', { user: ur });
         }
     },
+
+    findRest: async function(req, res){
+        if(req.wantsJSON){
+
+            var Rest = await Restaurant.find({
+                where: { mall: req.params.Mallname }
+            })
+
+            return res.json(Rest);
+        }
+    }
 
 
 
