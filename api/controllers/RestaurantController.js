@@ -188,6 +188,27 @@ module.exports = {
 
             return res.json(Rest);
         }
+    },
+
+    findRestByCoins: async function(req, res){
+        if(req.wantsJSON){
+            var str = req.params.Range;
+            var whereClause = {};
+
+            if(str.includes("<=")){
+               whereClause.coins = { '<=': '300' };
+            }else if(str.includes("<")){
+               whereClause.coins = { '>': '300', '<': '600' };
+            }else if(str.includes(">=")){
+               whereClause.coins = { '>=': '600' };
+            }
+
+            var rest = await Restaurant.find({
+                where: whereClause
+            })
+
+            return res.json(rest);
+        }
     }
 
 

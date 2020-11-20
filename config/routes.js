@@ -61,6 +61,10 @@ module.exports.routes = {
   'GET /mall/:Mallname' : 'RestaurantController.findRest',
   'POST /mall/:Mallname' : 'RestaurantController.findRest',
 
+  'GET /Coins/:Range' : 'RestaurantController.findRestByCoins',
+  'POST /Coins/:Range' : 'RestaurantController.findRestByCoins',
+
+
 
 
 

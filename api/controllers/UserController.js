@@ -72,7 +72,7 @@ module.exports = {
 
         if (req.wantsJSON) {
 
-            var rest = await Restaurant.findOne(req.session.iden).populate("consultants");
+            var rest = await Restaurant.findOne(req.params.restid).populate("consultants");
 
             if (!rest) return res.notFound();
 
