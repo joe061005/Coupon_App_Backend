@@ -46,7 +46,7 @@ module.exports.bootstrap = async function () {
     { title: "A complimentary set lunch", name: "Forbidden Duck", region: "HK Island", mall: "Times Square", image: "https://static.wixstatic.com/media/a32f10_91d7d9ec5b40473ba91730c8bf090a70~mv2_d_5472_3648_s_4_2.jpg/v1/fill/w_640,h_426,al_c,q_80,usm_0.66_1.00_0.01/a32f10_91d7d9ec5b40473ba91730c8bf090a70~mv2_d_5472_3648_s_4_2.webp", quota: 15, coins: 1500, validtill: "2020-12-31", detail: "Offer is valid for dine-in only" },
     { title: "A complimentary set lunch", name: "KOKOMI", region: "HK Island", mall: "Pacific Place", image: "https://4.bp.blogspot.com/-mzcQpEwA8Ac/W2llaqB6wDI/AAAAAAAAGn0/Sic2uXnHT8w6RlFsY51xTJthVLOcIE8ugCLcBGAs/s1600/DSC01327.JPG", quota: 15, coins: 1000, validtill: "2020-12-31", detail: "Offer is valid for dine-in only" },
     { title: "15% Off on Whole Bill", name: "dimsumbar", region: "Kowloon", mall: "Harbour City", image: "https://media-cdn.tripadvisor.com/media/photo-s/0e/48/7b/dc/caption.jpg", quota: 50, coins: 800, validtill: "2020-12-31", detail: "Offer is valid for dine-in only" },
-    { title: "A complimentary set lunch", name: "RUBY TUESDAY", region: "Kowloon", mall: "MegaBox", image: "http://www.megabox.com.hk/uploaded_files/shop/152.jpg", quota: 500, coins: 600, validtill: "2020-12-31", detail: "Please present this coupon before paying" },
+    { title: "A complimentary set lunch", name: "RUBY TUESDAY", region: "Kowloon", mall: "MegaBox", image: "https://inline.imgix.net/branch/-LUId_ydMLfbiDuOSaVs:inline-live-2a466--LUIftGMpe2cx62y3pXw-2c9773f6-a59f-4944-933a-2a91b0eae4df.jpg", quota: 500, coins: 600, validtill: "2020-12-31", detail: "Please present this coupon before paying" },
 
     // etc.
   ]);
