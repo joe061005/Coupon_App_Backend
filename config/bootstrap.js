@@ -47,7 +47,7 @@ module.exports.bootstrap = async function () {
     { title: "A complimentary set lunch", name: "KOKOMI", region: "HK Island", mall: "Pacific Place", image: "https://4.bp.blogspot.com/-mzcQpEwA8Ac/W2llaqB6wDI/AAAAAAAAGn0/Sic2uXnHT8w6RlFsY51xTJthVLOcIE8ugCLcBGAs/s1600/DSC01327.JPG", quota: 15, coins: 1000, validtill: "2020-12-31", detail: "Offer is valid for dine-in only" },
     { title: "15% Off on Whole Bill", name: "dimsumbar", region: "Kowloon", mall: "Harbour City", image: "https://media-cdn.tripadvisor.com/media/photo-s/0e/48/7b/dc/caption.jpg", quota: 50, coins: 800, validtill: "2020-12-31", detail: "Offer is valid for dine-in only" },    
     { title: "80% off on Whole Bill", name: "Chateraise", region: "New Territories", mall: "New Town Plaza", image: "https://static5.orstatic.com/userphoto2/photo/1C/11ZY/07I7RC396D73C44228A0A9lv.jpg", quota: 500, coins: 10000, validtill: "2021-12-31", detail: "Please present this coupon before paying" },
-    { title: "50% off on Whole Bill", name: "COMEBUYTEA", region: "New Territories", mall: "New Town Plaza", image: "https://cdn.feehk.com/cover/static7-restaurant/userphoto2/photo/1K/18GY/08S8NE9E6835C19F18D077lv.jpg", quota: 0, coins: 100, validtill: "2021-12-31", detail: "Please present this coupon before paying" },
+    { title: "50% off on Whole Bill", name: "COMEBUYTEA", region: "New Territories", mall: "New Town Plaza", image: "https://taipomegamall.shkp.com/uploads/pics/ComeBuy%20Tea.jpg", quota: 0, coins: 100, validtill: "2021-12-31", detail: "Please present this coupon before paying" },
 
     // etc.
   ]);
