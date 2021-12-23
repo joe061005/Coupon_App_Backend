@@ -149,7 +149,7 @@ module.exports = {
     ***************************************************************************/
     cors: {
       allowOrigins: [
-        'https://joe061005.herokuapp.com/'
+        'https://joe061005.herokuapp.com'
       ]
     },
 
@@ -251,7 +251,7 @@ module.exports = {
     *                                                                          *
     ***************************************************************************/
     onlyAllowOrigins: [
-      'https://joe061005.herokuapp.com/'
+      'https://joe061005.herokuapp.com'
     ],
 
 
