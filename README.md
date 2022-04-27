@@ -5,6 +5,7 @@ IMPORTANT: Please Download the 'Coupon_App_iOS' or 'Coupon_App_Android' repo fir
 3. enter 'sails lift' and then enter '1'
 4. open a new terminal and enter 'ngrok http 1337'
 5. copy the link starting with 'https://' and paste it to the file (Android: values -> strings.xml -> <string name="baseURL">PASTE THE LINK </string>) (iOS: ContentView -> baseURL)
+6. Login to the system with username 'member2' and password '123456'
 
 # project
 
