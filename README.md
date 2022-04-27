@@ -1,3 +1,11 @@
+# how to start the server
+IMPORTANT: Please Download the 'Coupon_App_iOS' or 'Coupon_App_Android' repo first
+1. open this file in the terminal
+2. enter 'npm install'
+3. enter 'sails lift' and then enter '1'
+4. open a new terminal and enter 'ngrok http 1337'
+5. copy the link starting with 'https://' and paste it to the file (Android: values -> strings.xml -> <string name="baseURL">PASTE THE LINK </string>) (iOS: ContentView -> baseURL)
+
 # project
 
 a [Sails v1](https://sailsjs.com) application
