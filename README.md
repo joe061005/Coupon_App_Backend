@@ -1,3 +1,7 @@
+
+# demo video
+https://youtu.be/ARlK8tBTFSQ
+
 # how to start the server
 IMPORTANT: Please Download the 'Coupon_App_iOS' or 'Coupon_App_Android' repo first
 1. open this file in the terminal
